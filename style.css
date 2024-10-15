@@ -1,0 +1,46 @@
+.contentContainer {
+  opacity: 0;
+}
+
+.content {
+  margin: auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+.checkboxes-container {
+  display: inline-flex;
+  align-items: flex-start;
+  /* To ensure the checkbox and label appear side by side */
+  /* Aligns the checkbox and label vertically */
+  margin: 5px 0;
+}
+.dichiarazione-doganale {
+  .auto-dichiarazione {
+    .margin-left {
+      margin-left: 20px;
+    }
+    .date-container {
+      margin-left: 220px;
+    }
+  }
+
+  .underlined {
+    text-decoration: underline;
+  }
+
+  .dichiarazoine-merci {
+    border: 1px solid black;
+    padding: 20px 30px;
+  }
+}
+
+img {
+  display: block;
+  margin-left: auto;
+}
+
+.firma-timbro {
+  margin-top: 0px;
+}

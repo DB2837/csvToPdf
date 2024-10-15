@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"
+      integrity="sha512-CNhbAXGrvqmSMpgydAOp7SFP50hdDaIMir76cuptjMdG0V4Hq7h+JzpSudrD2mRC38tawkA8aQSU8dQ0H6hzdQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <title>CSV Reader (No Headers)</title>
+  </head>
+  <body>
+    <h1>Upload CSV File (No Headers)</h1>
+    <input type="file" id="upload-csv" accept=".csv" />
+    <br /><br />
+    <table id="csv-table" border="1">
+      <!-- Table will be populated here -->
+    </table>
+
+    <div class="contentContainer" id="contentContainer"></div>
+
+    <!--   <div class="dichiarazione-doganale">
+      <div class="page">
+        <header>
+          <h1>SONNECT</h1>
+        </header>
+
+        <main>
+          <h4>Spett.le Agenzia delle Dogane</h4>
+
+          <div class="auto-dichiarazione">
+            <p>
+              Io sottoscritto DAVID SCORTECCIA in qualità di LEGALE
+              RAPPRESENTANTE della ditta Sonnect Srl, P. IVA IT 03825400546
+              dichiaro sotto la mia personale responsabilità che la merce
+              contenuta nella spedizione nr ………………..
+            </p>
+
+            <div>
+              <span>fattura nr. <span class="margin-left">FVD2264</span> </span>
+              <span class="date-container"
+                >data: <span class="margin-left">16/09/2024</span></span
+              >
+            </div>
+            <p>
+              non è vincolato a licenze di esportazione e che la merce riferita
+              alla documentazione in oggetto:
+            </p>
+
+            <div class="checkboxes-container">
+              <input type="checkbox" id="preferenziale-UE" name="UE" />
+
+              <label for="preferenziale-UE">
+                <div>
+                  <h3>MERCE DI ORIGINE PREFERENZIALE U.E.</h3>
+                  <p>
+                    (barrare la casella con una X in caso di merce di origine
+                    preferenziale. Valido solo per richiedere l’emissione del
+                    certificato EUR1/EUR MED)
+                  </p>
+                  <p>
+                    Dichiarazione da compilare
+                    <span class="underlined">esclusivamente in caso</span> sia
+                    stata barrata la scelta dell’origine preferenziale.
+                  </p>
+                  <div class="dichiarazoine-merci">
+                    <h3>dichiarazione</h3>
+                    <p>Il sottoscritto dichiara che le merci con</p>
+
+                    <div>
+                      <p>
+                        codice SKU: <span>SW-C</span> <br />
+                        nr. pezzi: <span>1</span> <br />
+                        valore totale: <span>148.9 EUR</span>
+                      </p>
+                    </div>
+
+                    <div>
+                      <p>
+                        elencate nel presente documento sono originarie di
+                        ...ITALIA........ e rispettano le norme di origine che
+                        disciplinano gli scambi preferenziali con
+                        ________________
+                        <br />
+                        Dichiara: <br />
+                        <input type="checkbox" id="opzione1" name="opzione1" />
+                        <label for="opzione1"
+                          >Cumulo applicato con ............... (origine
+                          preferenziale acquisita con merce del Paese/dei
+                          Paesi)</label
+                        ><br />
+                        <input type="checkbox" id="opzione2" name="opzione2" />
+                        <label for="opzione2"
+                          >Cumulo non applicato (origine preferenziale della
+                          merce dovuta ad un unico Paese)</label
+                        ><br />
+                        Si impegna a presentare alle autorità doganali tutta la
+                        necessaria documentazione giustificativa dell’origine
+                        preferenziale (esempi documenti: fatture, documenti di
+                        importazione, certificati di circolazione, dichiarazioni
+                        su fattura, dichiarazioni fabbricante/fornitore,
+                        estratti di documenti contabili, estratti di documenti
+                        tecnici di lavorazione, ecc.):
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <input type="checkbox" id="opzione1" name="opzione1" />
+            <label for="opzione1"><h3>MERCE CON DESTINO TURCHIA</h3></label>
+
+            <p>
+              (barrare la casella con una X in caso di merce destinata in
+              Turchia, al fine di poter richiedere l’emissione del certificato
+              ATR) Dichiaro che la merce rispetta i requisiti previsti per
+              l’applicazione dell’Accordo UE/Turchia (Decisione n. 1/95 del
+              Consiglio di associazione CE- Turchia, del 22/12/1995 e
+              2006/646/CE: Decisione n. 1/2006 del Comitato di cooperazione
+              doganale CE-Turchia, del 26/09/2006).
+            </p>
+
+            <div>
+              <p>
+                <span class="section-tile"
+                  >MANDATO PER EMISSIONE CERTIFICATO EUR1/EUR-MED/ATR</span
+                >
+                <br />
+                Si conferisce a DHL Express (Italy) S.r.l. mandato al compimento
+                delle operazioni doganali e all’emissione e alla firma per
+                nostro ordine e conto del modello EUR1/EUR-MED/ATR, e
+                contestuale manleva da qualsiasi responsabilità legata
+                direttamente o indirettamente all’espletamento della procedura
+                oggetto del presente mandato.
+              </p>
+            </div>
+
+            <div>
+              <p>
+                <span class="section-tile"
+                  >DICHIARAZIONE PER DUPLICE USO (certificato Y901)</span
+                >
+                <br />
+                non rientra nell’elenco dei beni previsti dal Reg. (UE) n.
+                821/2021 e successive modifiche che istituisce un regime
+                comunitario di controllo delle esportazioni di prodotti e
+                tecnologie a duplice uso (Dual Use) e pertanto destinata ad uso
+                civile.
+              </p>
+            </div>
+
+            <div>
+              <p>
+                <span class="section-tile"
+                  >DICHIARAZIONE DI WASHINGTON (certificato Y900)</span
+                >
+                <br />
+                non rientra tra quelle protette dalla Convenzione di Washington,
+                come da Reg. (CE) n. 338/97 e successive modifiche, relativo
+                alla protezione di specie della flora e fauna selvatiche.
+              </p>
+
+              <img
+                src="images/firma.jpg"
+                alt="Company Logo"
+                width="190"
+                class="firma-timbro"
+              />
+            </div>
+          </div>
+        </main>
+      </div>
+    </div> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="main.js" type="module"></script>
+  </body>
+</html>
