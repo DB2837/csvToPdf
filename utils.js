@@ -224,9 +224,6 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
 
     <div class="page">
 
-      <header>
-          <h1>SONNECT</h1>
-        </header>
        <div class="section-paragraph">
               <p>
                 <span class="section-tile"
