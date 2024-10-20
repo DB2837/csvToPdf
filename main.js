@@ -82,38 +82,17 @@ function generatePdf(invoiceNumber, invoiceDate, tableData) {
     tableData
   );
 
-  const { jsPDF } = window.jspdf;
-
   // Reference to the dynamically generated HTML content
   const content = document.getElementById('content');
 
-  // Convert HTML to canvas
-  html2canvas(content).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png');
-
-    // Initialize jsPDF
-    const pdf = new jsPDF('p', 'mm', 'a4');
-
-    // Add the canvas image to the PDF
-    const imgWidth = 210; // PDF width in mm
-    const pageHeight = 295; // PDF height in mm
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    let heightLeft = imgHeight;
-    let position = 0;
-
-    // Add the first page
-    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-    heightLeft -= pageHeight;
-
-    // Add extra pages if necessary
-    while (heightLeft >= 0) {
-      position = heightLeft - imgHeight;
-      pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-    }
-
-    // Save the PDF
-    pdf.save(`documento doganale - ${invoiceNumber}`);
-  });
+  html2pdf()
+    .from(content)
+    .set({
+      margin: [0.2, 0.4, 0.2, 0.4], // Set smaller margins (top, right, bottom, left)
+      filename: `documento doganale - ${invoiceNumber}`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    })
+    .save();
 }

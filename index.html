@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"
@@ -17,7 +17,7 @@
     <title>CSV Reader (No Headers)</title>
   </head>
   <body>
-    <h1>Upload CSV File (No Headers)</h1>
+    <h1>Upload CSV File</h1>
     <input type="file" id="upload-csv" accept=".csv" />
     <br /><br />
     <table id="csv-table" border="1">
@@ -26,7 +26,7 @@
 
     <div class="contentContainer" id="contentContainer"></div>
 
-    <!--   <div class="dichiarazione-doganale">
+    <!-- <div class="dichiarazione-doganale">
       <div class="page">
         <header>
           <h1>SONNECT</h1>
@@ -43,10 +43,12 @@
               contenuta nella spedizione nr ………………..
             </p>
 
-            <div>
-              <span>fattura nr. <span class="margin-left">FVD2264</span> </span>
+            <div class="invoiceNumber-date">
+              <span
+                >fattura nr. <span class="margin-left bold">FVD2264</span>
+              </span>
               <span class="date-container"
-                >data: <span class="margin-left">16/09/2024</span></span
+                >data: <span class="margin-left bold">16/09/2024</span></span
               >
             </div>
             <p>
@@ -54,81 +56,84 @@
               alla documentazione in oggetto:
             </p>
 
-            <div class="checkboxes-container">
-              <input type="checkbox" id="preferenziale-UE" name="UE" />
-
+            <div class="checkbox-container">
+              <input type="checkbox" id="preferenziale-UE" name="UE" checked />
               <label for="preferenziale-UE">
-                <div>
-                  <h3>MERCE DI ORIGINE PREFERENZIALE U.E.</h3>
-                  <p>
-                    (barrare la casella con una X in caso di merce di origine
-                    preferenziale. Valido solo per richiedere l’emissione del
-                    certificato EUR1/EUR MED)
-                  </p>
-                  <p>
-                    Dichiarazione da compilare
-                    <span class="underlined">esclusivamente in caso</span> sia
-                    stata barrata la scelta dell’origine preferenziale.
-                  </p>
-                  <div class="dichiarazoine-merci">
-                    <h3>dichiarazione</h3>
-                    <p>Il sottoscritto dichiara che le merci con</p>
-
-                    <div>
-                      <p>
-                        codice SKU: <span>SW-C</span> <br />
-                        nr. pezzi: <span>1</span> <br />
-                        valore totale: <span>148.9 EUR</span>
-                      </p>
-                    </div>
-
-                    <div>
-                      <p>
-                        elencate nel presente documento sono originarie di
-                        ...ITALIA........ e rispettano le norme di origine che
-                        disciplinano gli scambi preferenziali con
-                        ________________
-                        <br />
-                        Dichiara: <br />
-                        <input type="checkbox" id="opzione1" name="opzione1" />
-                        <label for="opzione1"
-                          >Cumulo applicato con ............... (origine
-                          preferenziale acquisita con merce del Paese/dei
-                          Paesi)</label
-                        ><br />
-                        <input type="checkbox" id="opzione2" name="opzione2" />
-                        <label for="opzione2"
-                          >Cumulo non applicato (origine preferenziale della
-                          merce dovuta ad un unico Paese)</label
-                        ><br />
-                        Si impegna a presentare alle autorità doganali tutta la
-                        necessaria documentazione giustificativa dell’origine
-                        preferenziale (esempi documenti: fatture, documenti di
-                        importazione, certificati di circolazione, dichiarazioni
-                        su fattura, dichiarazioni fabbricante/fornitore,
-                        estratti di documenti contabili, estratti di documenti
-                        tecnici di lavorazione, ecc.):
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <h3>MERCE DI ORIGINE PREFERENZIALE U.E.</h3>
               </label>
             </div>
 
-            <input type="checkbox" id="opzione1" name="opzione1" />
-            <label for="opzione1"><h3>MERCE CON DESTINO TURCHIA</h3></label>
+            <div class="checkbox-content">
+              <p>
+                (barrare la casella con una X in caso di merce di origine
+                preferenziale. Valido solo per richiedere l’emissione del
+                certificato EUR1/EUR MED) <br />
+                Dichiarazione da compilare
+                <span class="underlined">esclusivamente in caso</span> sia stata
+                barrata la scelta dell’origine preferenziale.
+              </p>
 
-            <p>
-              (barrare la casella con una X in caso di merce destinata in
-              Turchia, al fine di poter richiedere l’emissione del certificato
-              ATR) Dichiaro che la merce rispetta i requisiti previsti per
-              l’applicazione dell’Accordo UE/Turchia (Decisione n. 1/95 del
-              Consiglio di associazione CE- Turchia, del 22/12/1995 e
-              2006/646/CE: Decisione n. 1/2006 del Comitato di cooperazione
-              doganale CE-Turchia, del 26/09/2006).
-            </p>
+              <div class="dichiarazoine-merci">
+                <h3>dichiarazione</h3>
+                <p>Il sottoscritto dichiara che le merci con</p>
 
-            <div>
+                <div class="product">
+                  <p>
+                    codice SKU: <span>SW-C</span> <br />
+                    nr. pezzi: <span>1</span> <br />
+                    valore totale: <span>148.9 EUR</span>
+                  </p>
+                </div>
+
+                <div>
+                  <p>
+                    elencate nel presente documento sono originarie di
+                    ...ITALIA........ e rispettano le norme di origine che
+                    disciplinano gli scambi preferenziali con ________________
+                    <br />
+                    <br />
+                    Dichiara: <br />
+                    <input type="checkbox" id="opzione1" name="opzione1" />
+                    <label for="opzione1"
+                      >Cumulo applicato con ............... (origine
+                      preferenziale acquisita con merce del Paese/dei
+                      Paesi)</label
+                    ><br />
+                    <input type="checkbox" id="opzione2" name="opzione2" />
+                    <label for="opzione2"
+                      >Cumulo non applicato (origine preferenziale della merce
+                      dovuta ad un unico Paese)</label
+                    ><br />
+                    Si impegna a presentare alle autorità doganali tutta la
+                    necessaria documentazione giustificativa dell’origine
+                    preferenziale (esempi documenti: fatture, documenti di
+                    importazione, certificati di circolazione, dichiarazioni su
+                    fattura, dichiarazioni fabbricante/fornitore, estratti di
+                    documenti contabili, estratti di documenti tecnici di
+                    lavorazione, ecc.):
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="checkbox-container">
+              <input type="checkbox" id="opzione1" name="opzione1" />
+              <label for="opzione1"><h3>MERCE CON DESTINO TURCHIA</h3></label>
+            </div>
+
+            <div class="checkbox-content">
+              <p>
+                (barrare la casella con una X in caso di merce destinata in
+                Turchia, al fine di poter richiedere l’emissione del certificato
+                ATR) Dichiaro che la merce rispetta i requisiti previsti per
+                l’applicazione dell’Accordo UE/Turchia (Decisione n. 1/95 del
+                Consiglio di associazione CE- Turchia, del 22/12/1995 e
+                2006/646/CE: Decisione n. 1/2006 del Comitato di cooperazione
+                doganale CE-Turchia, del 26/09/2006).
+              </p>
+            </div>
+
+            <div class="section-paragraph">
               <p>
                 <span class="section-tile"
                   >MANDATO PER EMISSIONE CERTIFICATO EUR1/EUR-MED/ATR</span
@@ -143,7 +148,7 @@
               </p>
             </div>
 
-            <div>
+            <div class="section-paragraph">
               <p>
                 <span class="section-tile"
                   >DICHIARAZIONE PER DUPLICE USO (certificato Y901)</span
@@ -157,7 +162,7 @@
               </p>
             </div>
 
-            <div>
+            <div class="section-paragraph">
               <p>
                 <span class="section-tile"
                   >DICHIARAZIONE DI WASHINGTON (certificato Y900)</span
@@ -167,16 +172,80 @@
                 come da Reg. (CE) n. 338/97 e successive modifiche, relativo
                 alla protezione di specie della flora e fauna selvatiche.
               </p>
+              <p>la merce non rientra nell’ elenco dei beni previsti dal:</p>
 
-              <img
-                src="images/firma.jpg"
-                alt="Company Logo"
-                width="190"
-                class="firma-timbro"
-              />
+              <p>
+                <span class="underlined">Reg. (CE) 314/04 </span>e successive
+                modifiche, concernente misure restrittive nei confronti dello
+                Zimbabwe;
+              </p>
+              <p>
+                Reg. (UE) 2017/1509 e successive modifiche, concernente misure
+                restrittive nei confronti della Repubblica popolare democratica
+                di Corea;
+              </p>
+              <p>
+                Reg. (UE) 401/2013 e successive modifiche, concernente misure
+                restrittive nei confronti del Myanmar;
+              </p>
+              <p>
+                Reg. (UE) 44/2016 e successive modifiche, concernente misure
+                restrittive nei confronti della Libia;
+              </p>
+              <p>
+                Reg. (UE) 36/12 e successive modifiche, concernente misure
+                restrittive nei confronti della Siria;
+              </p>
+              <p>
+                Reg. (UE) 267/12 e successive modifiche e attuazioni,
+                concernente misure restrittive nei confronti dell’Iran;
+              </p>
+              <p>
+                Reg. (UE) 747/14 e successive modifiche, concernente misure
+                restrittive nei confronti del Sudan.
+              </p>
             </div>
+            <img
+              src="images/firma.jpg"
+              alt="Company Logo"
+              width="185"
+              class="firma-timbro"
+            />
           </div>
         </main>
+
+        <footer>
+          <div class="place-date">
+            <p>Luogo e data</p>
+            <p>Marsciano, 16/09/2024</p>
+          </div>
+
+          <div class="sonncet-info">
+            <p>Sonnect S.r.l</p>
+            <p>
+              Via A. Ferranti, 5 - Zona ind. Torre Sapienza snc - 06055 -
+              Marsciano(PG) - Italy
+            </p>
+            <p>
+              Tel. 349 0081699 - www.sonnectaudio.com - hello@sonnectaudio.com -
+              sonnect@pec.it
+            </p>
+            <p>
+              Partita iva/Cod.Fisc./CCIAA:IT03825400546 - REA:355068 - Capitale
+              sociale: 10.000,00€ I.v
+            </p>
+          </div>
+
+          <div class="signature">
+            <p>Firma incaricato</p>
+            <img
+              src="images/firma.jpg"
+              alt="Company Logo"
+              width="185"
+              class="firma-timbro"
+            />
+          </div>
+        </footer>
       </div>
     </div> -->
 
