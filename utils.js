@@ -119,6 +119,9 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
                 <h3>dichiarazione</h3>
                 <p>Il sottoscritto dichiara che le merci con</p>
                      ${tableObject}
+                        
+                      
+                      
 
                 <div>
                   <p>
@@ -208,19 +211,20 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
                 alla protezione di specie della flora e fauna selvatiche.
               </p>
 
-              <img
-                src="images/firma.jpg"
-                alt="Company Logo"
-                width="190"
-                class="firma-timbro"
-              />
             </div>
           </div>
         </main>
+        
+              <img
+                src="images/firma.jpg"
+                alt="Company Logo"
+                width="180"
+                class="firma-timbro"
+              />
       </div>
     </div>
 
-
+<div class="page-break"></div> 
 
     <div class="page">
 
@@ -417,13 +421,11 @@ fondati motivi che saranno utilizzate in Crimea e a Sebastopoli (Articolo 2ter p
               src="images/firma.jpg"
               alt="Company Logo"
               width="185"
-              class="firma-timbro"
+             
             />
           </div>
         </footer>
     </div>
-      
-      
     </div>
 
 

@@ -72,8 +72,14 @@ header {
 }
 
 .page {
-  padding: 12px;
-  font-size: 13px;
+  position: relative;
+  font-size: 13.7px;
+  margin: 10px auto;
+  padding: 14px 20px 0px 20px;
+}
+
+.page-break {
+  page-break-before: always;
 }
 
 .regulation {
@@ -168,7 +174,10 @@ img {
 }
 
 .firma-timbro {
-  margin-top: 0px;
+  position: absolute;
+  bottom: -50px; /* Adjust this to control the distance from the bottom */
+  right: 10px; /* Adjust this to control the distance from the right */
+  z-index: -9;
 }
 
 footer {
