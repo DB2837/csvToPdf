@@ -283,7 +283,7 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
               </p>
             </div>
 
-                <div class="section-paragraph">
+                <div class="section-paragraph regulation">
               <p>
                 <span class="section-tile"
                   >DICHIARAZIONE PER MERCE DESTINATA IN UNO DEI PAESI SOTTO INDICATI (certificati Y920 - Y921- Y949 - Y966 – Y967)</span

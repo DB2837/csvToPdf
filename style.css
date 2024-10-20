@@ -76,9 +76,17 @@ header {
   font-size: 13px;
 }
 
+.regulation {
+  p {
+    margin: 2px 0;
+  }
+}
+
 .underlined {
   line-height: 1;
   text-decoration: underline;
+  text-underline-offset: 0.1px; /* Adjust this value to control the space between text and underline */
+  text-decoration-thickness: 0.8px; /* Optional: control the thickness of the underline */
 }
 
 .auto-dichiarazione {
