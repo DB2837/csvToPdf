@@ -69,6 +69,11 @@ h6 {
 
 header {
   margin-bottom: 20px;
+
+  .logo {
+    margin-left: 0;
+    width: 210px;
+  }
 }
 
 .page {
@@ -93,6 +98,10 @@ header {
   text-decoration: underline;
   text-underline-offset: 0.1px; /* Adjust this value to control the space between text and underline */
   text-decoration-thickness: 0.8px; /* Optional: control the thickness of the underline */
+}
+
+.generate-pdf {
+  margin: 15px 8px;
 }
 
 .auto-dichiarazione {

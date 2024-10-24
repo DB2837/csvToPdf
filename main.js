@@ -2,6 +2,7 @@ import {
   convertDate,
   extractInvoiceNumber,
   createHtmlBoilerplate,
+  generateButton,
 } from './utils.js';
 
 // Wait for file input
@@ -16,22 +17,54 @@ document
         header: false, // CSV has no headers
         dynamicTyping: true, // Automatically typecast numbers and booleans
         complete: function (results) {
-          const data = results.data;
+          const data = results.data.filter((item) => item.length > 1);
           console.log(data);
 
-          // Log CSV data to console
-          // Call the function to render table
-          const invoiceNumber = extractInvoiceNumber(data[0][5]);
-          const invoiceDate = convertDate(data[0][7]);
+          const invoiceData = [];
 
-          const tableData = convertToJsonWithoutTableHeaders(data); // Convert CSV to JSON
-          console.log('CSV  Data as JSON:', {
-            invoiceNumber,
-            invoiceDate,
-            tableData,
-          }); // Log JSON to console
+          for (let i = 0; i < data?.length; i++) {
+            if ((data[i] && data[i][0] !== undefined) || data[i][0] != null) {
+              const invoiceNumber = extractInvoiceNumber(data[i][5]);
+              const invoiceDate = convertDate(data[i][7]);
 
-          generatePdf(invoiceNumber, invoiceDate, tableData); // Generate PDF
+              const tableData = convertToJsonWithoutTableHeaders(
+                data,
+                invoiceNumber
+              );
+              /*    console.log('CSV  Data as JSON:', {
+                invoiceNumber,
+                invoiceDate,
+                tableData,
+              }); */ // Log JSON to console
+
+              invoiceData.push({
+                invoiceNumber,
+                invoiceDate,
+                tableData,
+              });
+            }
+          }
+
+          const seenInvoiceNumber = new Set();
+          const uniqueInvoiceData = invoiceData.filter((item) => {
+            const duplicate = seenInvoiceNumber.has(item.invoiceNumber);
+            seenInvoiceNumber.add(item.invoiceNumber);
+            return !duplicate;
+          });
+
+          console.log('INVOICE DATA', uniqueInvoiceData);
+
+          const buttonContainer = document.getElementById('buttonContainer');
+          buttonContainer.innerHTML = '';
+
+          uniqueInvoiceData.forEach((item) => {
+            const button = generateButton(item.invoiceNumber, function () {
+              generatePdf(item.invoiceNumber, item.invoiceDate, item.tableData);
+            });
+            buttonContainer.appendChild(button);
+          });
+
+          // generatePdf(invoiceNumber, invoiceDate, tableData); // Generate PDF
 
           /* console.table(jsonData[0][29]); */
         },
@@ -43,7 +76,7 @@ document
   });
 
 // Function to convert the CSV data into JSON without headers
-function convertToJsonWithoutTableHeaders(data) {
+function convertToJsonWithoutTableHeaders(data, invoiceNumber) {
   const jsonData = [];
 
   // Loop through each row in the data array
@@ -55,13 +88,19 @@ function convertToJsonWithoutTableHeaders(data) {
       rowObject[`${colIndex + 1}`] = cell;
     });
 
-    jsonData.push(rowObject); // Add the row object to the JSON data array
+    if (
+      extractInvoiceNumber(rowObject[6]) &&
+      extractInvoiceNumber(rowObject[6]) === invoiceNumber
+    ) {
+      jsonData.push(rowObject);
+    }
   });
 
   const filteredData = jsonData
     .map((object) => {
       if (object[23] === 'IT') {
         return {
+          invoiceNumber: object[6],
           skuCode: object[21],
           quantity: object[26],
           totalValue: object[29],

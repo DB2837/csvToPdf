@@ -22,6 +22,15 @@ export function convertDate(str) {
   }
 }
 
+export function generateButton(invoiceNumber, callback) {
+  const button = document.createElement('button');
+  button.textContent = `Genera PDF per ` + invoiceNumber;
+  button.classList.add('generate-pdf');
+  button.addEventListener('click', () => callback());
+
+  return button;
+}
+
 export function getCurrentDateWithTimezone() {
   const today = new Date();
 
@@ -73,7 +82,7 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
        <div class="dichiarazione-doganale">
       <div class="page">
         <header>
-          <h1>SONNECT</h1>
+          <img src="images/logo.gif" alt="Company Logo"  class="logo" />
         </header>
 
         <main>
