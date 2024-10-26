@@ -58,8 +58,16 @@ export function extractInvoiceNumber(str) {
     : console.log('No invoice number found.');
 }
 
-export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
+export function createHtmlBoilerplate(
+  invoiceNumber,
+  invoiceDate,
+  tableData,
+  goodsOrigin
+) {
   const currentDate = getCurrentDateWithTimezone();
+
+  const isMixed = goodsOrigin.isMixed;
+  const isFullForeign = goodsOrigin.isFullForeign;
 
   const tableObject = tableData
     .map((item) => {
@@ -74,6 +82,8 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
     `;
     })
     .join('');
+
+  console.log(tableData.length);
 
   return `
  <div id="content">
@@ -108,7 +118,9 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
             </p>
 
             <div class="checkbox-container">
-              <input type="checkbox" id="preferenziale-UE" name="UE" checked />
+              <input type="checkbox" id="preferenziale-UE" name="UE" ${
+                !isFullForeign ? 'checked' : ''
+              } />
               <label for="preferenziale-UE">
                 <h3>MERCE DI ORIGINE PREFERENZIALE U.E.</h3>
               </label>
@@ -124,10 +136,17 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
                 barrata la scelta dell’origine preferenziale.
               </p>
 
-              <div class="dichiarazoine-merci">
+             
+
+               ${
+                 isMixed
+                   ? `   <div class="dichiarazoine-merci">
                 <h3>dichiarazione</h3>
                 <p>Il sottoscritto dichiara che le merci con</p>
                      ${tableObject}
+                      ${tableObject}
+                     
+                     
                         
                       
                       
@@ -160,7 +179,10 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
                     lavorazione, ecc.):
                   </p>
                 </div>
-              </div>
+              </div>`
+                   : ''
+               }
+           
             </div>
 
             <div class="checkbox-container">
@@ -223,17 +245,32 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
             </div>
           </div>
         </main>
+
+        ${
+          isMixed
+            ? `<img
+                  src="images/firma.jpg"
+                  alt="Company Logo"
+                  width="180"
+                  class="firma-timbro"
+                  id="firma-timbro"
+                  style="${
+                    tableData?.length >= 3 ? 'bottom: -46px;' : 'bottom: -70px;'
+                  }"
+               />`
+            : ''
+        }
+
+
+
         
-              <img
-                src="images/firma.jpg"
-                alt="Company Logo"
-                width="180"
-                class="firma-timbro"
-              />
+             
       </div>
     </div>
 
-<div class="page-break"></div> 
+    ${isMixed ? `<div class="page-break"></div>` : ''}
+
+
 
     <div class="page">
 
@@ -280,6 +317,8 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
               </p>
             </div>
 
+            
+
              <div class="section-paragraph">
               <p>
                 <span class="section-tile"
@@ -291,7 +330,20 @@ export function createHtmlBoilerplate(invoiceNumber, invoiceDate, tableData) {
                merci che potrebbero essere utilizzate per la pena di morte, la tortura o per altri trattamenti o pene crudeli, inumane o
                degradanti.
               </p>
+
+               ${
+                 !isMixed
+                   ? ` <img
+                src="images/firma.jpg"
+                alt="Company Logo"
+                width="180"
+                class="firma-timbro"
+              />`
+                   : ''
+               }
             </div>
+
+             ${!isMixed ? `<div class="page-break"></div>` : ''}
 
                 <div class="section-paragraph regulation">
               <p>

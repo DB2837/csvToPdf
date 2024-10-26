@@ -27,10 +27,8 @@ document
               const invoiceNumber = extractInvoiceNumber(data[i][5]);
               const invoiceDate = convertDate(data[i][7]);
 
-              const tableData = convertToJsonWithoutTableHeaders(
-                data,
-                invoiceNumber
-              );
+              const { tableData, goodsOrigin } =
+                convertToJsonWithoutTableHeaders(data, invoiceNumber);
               /*    console.log('CSV  Data as JSON:', {
                 invoiceNumber,
                 invoiceDate,
@@ -38,6 +36,7 @@ document
               }); */ // Log JSON to console
 
               invoiceData.push({
+                goodsOrigin,
                 invoiceNumber,
                 invoiceDate,
                 tableData,
@@ -59,7 +58,12 @@ document
 
           uniqueInvoiceData.forEach((item) => {
             const button = generateButton(item.invoiceNumber, function () {
-              generatePdf(item.invoiceNumber, item.invoiceDate, item.tableData);
+              generatePdf(
+                item.invoiceNumber,
+                item.invoiceDate,
+                item.tableData,
+                item.goodsOrigin
+              );
             });
             buttonContainer.appendChild(button);
           });
@@ -78,6 +82,11 @@ document
 // Function to convert the CSV data into JSON without headers
 function convertToJsonWithoutTableHeaders(data, invoiceNumber) {
   const jsonData = [];
+  /*   const goods = {
+    italian: 'IT',
+    mixed: 'MI',
+    fullForeign: 'FO',
+  }; */
 
   // Loop through each row in the data array
   data.forEach((row, rowIndex) => {
@@ -96,6 +105,18 @@ function convertToJsonWithoutTableHeaders(data, invoiceNumber) {
     }
   });
 
+  /*  console.log('JSON DATA', jsonData); */
+
+  const isFullItalian = jsonData.every((item) => item[23] === 'IT');
+
+  const isMixed = jsonData.some((item) => item[23] !== 'IT');
+
+  const isFullForeign = jsonData.every((item) => item[23] !== 'IT');
+
+  /*   console.log('IS FULL ITALIAN', isFullItalian);
+  console.log('IS MIXED', isMixed);
+  console.log('IS FULL FOREIGN', isFullForeign); */
+
   const filteredData = jsonData
     .map((object) => {
       if (object[23] === 'IT') {
@@ -106,19 +127,30 @@ function convertToJsonWithoutTableHeaders(data, invoiceNumber) {
           totalValue: object[29],
         };
       } else {
+        /*  console.log('origin', object[23]); */
         return undefined;
       }
     })
     .filter((item) => item !== undefined);
 
-  return filteredData; // Return the JSON data array
+  /* console.log('FILTERED DATA', filteredData); */
+
+  return {
+    tableData: filteredData,
+    goodsOrigin: {
+      isFullItalian,
+      isMixed,
+      isFullForeign,
+    },
+  }; // Return the JSON data array
 }
 
-function generatePdf(invoiceNumber, invoiceDate, tableData) {
+function generatePdf(invoiceNumber, invoiceDate, tableData, goodsOrigin) {
   document.getElementById('contentContainer').innerHTML = createHtmlBoilerplate(
     invoiceNumber,
     invoiceDate,
-    tableData
+    tableData,
+    goodsOrigin
   );
 
   // Reference to the dynamically generated HTML content
@@ -129,8 +161,8 @@ function generatePdf(invoiceNumber, invoiceDate, tableData) {
     .set({
       margin: [0.2, 0.4, 0.2, 0.4], // Set smaller margins (top, right, bottom, left)
       filename: `documento doganale - ${invoiceNumber}`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
+      image: { type: 'jpeg', quality: 0.75 },
+      html2canvas: { scale: 1.2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     })
     .save();

@@ -170,6 +170,7 @@ header {
 }
 
 .section-paragraph {
+  position: relative;
   margin-top: 10px;
 
   .section-tile {
@@ -184,7 +185,7 @@ img {
 
 .firma-timbro {
   position: absolute;
-  bottom: -50px; /* Adjust this to control the distance from the bottom */
+  /* Adjust this to control the distance from the bottom */
   right: 10px; /* Adjust this to control the distance from the right */
   z-index: -9;
 }
