@@ -144,7 +144,7 @@ export function createHtmlBoilerplate(
                 <h3>dichiarazione</h3>
                 <p>Il sottoscritto dichiara che le merci con</p>
                      ${tableObject}
-                      ${tableObject}
+                      
                      
                      
                         
