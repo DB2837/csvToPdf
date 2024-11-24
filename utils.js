@@ -277,6 +277,16 @@ export function createHtmlBoilerplate(
        <div class="section-paragraph">
               <p>
                 <span class="section-tile"
+                  >DIVIETO DI RIESPORTAZIONE IN RUSSIA E IN BIELORUSSIA</span
+                >
+                <br />
+               Dichiaro che la merce è coperta da una clausola contrattuale che vieta la riesportazione in Russia e/o in Bielorussia nonché la riesportazione per l’uso in Russia e/o Bielorussia (articolo 12 octies, paragrafo 1, del Reg. (UE) n. 833/2014 - articolo 8 octies, paragrafo 1, del Reg. (CE) n. 765/2006).
+              </p>
+            </div>
+
+            <div class="section-paragraph">
+              <p>
+                <span class="section-tile"
                   >DICHIARAZIONE PER PELLICCE DI CANI E GATTI (certificato Y922)</span
                 >
                 <br />

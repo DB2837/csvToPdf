@@ -159,7 +159,7 @@ function generatePdf(invoiceNumber, invoiceDate, tableData, goodsOrigin) {
   html2pdf()
     .from(content)
     .set({
-      margin: [0.2, 0.4, 0.2, 0.4], // Set smaller margins (top, right, bottom, left)
+      margin: [0.12, 0.4, 0.12, 0.4], // Set smaller margins (top, right, bottom, left)
       filename: `documento doganale - ${invoiceNumber}`,
       image: { type: 'jpeg', quality: 0.75 },
       html2canvas: { scale: 1.2 },
