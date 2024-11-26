@@ -83,7 +83,7 @@ export function createHtmlBoilerplate(
     })
     .join('');
 
-  console.log(tableData.length);
+  /* console.log(tableData.length); */
 
   return `
  <div id="content">
@@ -139,7 +139,7 @@ export function createHtmlBoilerplate(
              
 
                ${
-                 isMixed
+                 isMixed && tableData.length > 0
                    ? `   <div class="dichiarazoine-merci">
                 <h3>dichiarazione</h3>
                 <p>Il sottoscritto dichiara che le merci con</p>
