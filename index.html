@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script
@@ -17,7 +19,12 @@
     <title>CSV Reader (No Headers)</title>
   </head>
   <body>
-    <h1>Upload CSV File</h1>
+    <h2>Carica PDF per modificarli</h2>
+    <input type="file" id="upload-pdf" multiple accept="application/pdf" />
+
+    <div class="separator"></div>
+
+    <h2>Carica CSV per generare dichiarazioni doganali</h2>
     <input type="file" id="upload-csv" accept=".csv" />
     <br /><br />
     <div id="buttonContainer"></div>
@@ -251,5 +258,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="main.js" type="module"></script>
+    <script src="modifyPdfs.js" type="module"></script>
   </body>
 </html>
