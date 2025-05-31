@@ -21,7 +21,7 @@ input.addEventListener('change', async (event) => {
       ? dataMatch.replace(/\//g, '')
       : 'datanon_trovata';
 
-    const siglaMatch = extractField(text, /\b(FVP\d{3}|FVD\d{3})\b/i);
+    const siglaMatch = extractField(text, /\b((FVD|FD|DSC|DSX)\d{3})\b/i);
 
     let siglaFormattata;
     if (siglaMatch) {
