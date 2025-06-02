@@ -1,3 +1,4 @@
+const zip = new JSZip();
 const input = document.getElementById('upload-pdf-mrn');
 
 input.addEventListener('change', async (event) => {
@@ -9,8 +10,6 @@ input.addEventListener('change', async (event) => {
     const page = await pdf.getPage(1);
     const textContent = await page.getTextContent();
     const text = textContent.items.map((item) => item.str).join(' ');
-
-    console.log(text);
 
     // Estrai data e sigla completa
     const dataMatch = extractField(
@@ -38,8 +37,16 @@ input.addEventListener('change', async (event) => {
 
     // Crea blob identico all'originale
     const blob = file.slice(0, file.size, 'application/pdf');
-    triggerDownload(blob, nuovoNome);
+    zip.file(nuovoNome, blob);
+    //triggerDownload(blob, nuovoNome);
   }
+
+  zip.generateAsync({ type: 'blob' }).then(function (content) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(content);
+    a.download = 'mrn_rinominati.zip';
+    a.click();
+  });
 });
 
 function extractField(text, regex) {
@@ -47,7 +54,7 @@ function extractField(text, regex) {
   return match ? match[1] : null;
 }
 
-function triggerDownload(blob, filename) {
+/* function triggerDownload(blob, filename) {
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = filename;
@@ -57,4 +64,4 @@ function triggerDownload(blob, filename) {
     URL.revokeObjectURL(link.href);
     document.body.removeChild(link);
   }, 100);
-}
+} */
