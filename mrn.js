@@ -17,7 +17,7 @@ input.addEventListener('change', async (event) => {
       /spedizione\s+del\s+(\d{2}\/\d{2}\/\d{4})/i
     );
     const dataPulita = dataMatch
-      ? dataMatch.replace(/\//g, '')
+      ? dataMatch.replace(/\//g, '-')
       : 'datanon_trovata';
 
     const siglaRegex = /\b((FVD|FD|DSC|DSX)(\d{1,4}))\b/i;
