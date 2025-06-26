@@ -20,13 +20,13 @@ input.addEventListener('change', async (event) => {
       ? dataMatch.replace(/\//g, '-')
       : 'datanon_trovata';
 
-    const siglaRegex = /\b((FVD|FD|DSC|DSX)(\d{1,4}))\b/i;
+    const siglaRegex = /\b(FVD|FD|DSC|DSX)\s*(\d{1,4})\b/i;
     const siglaMatch = text.match(siglaRegex);
 
     let siglaFormattata;
     if (siglaMatch) {
-      const tipo = siglaMatch[2]; // es. FVD
-      const codice = siglaMatch[3]; // es. 770
+      const tipo = siglaMatch[1]; // es. FVD
+      const codice = siglaMatch[2]; // es. 770
       siglaFormattata = `${tipo}_${codice}`;
     } else {
       siglaFormattata = 'sigla_non_trovata';
