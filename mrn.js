@@ -14,7 +14,7 @@ input.addEventListener('change', async (event) => {
     // Estrai data e sigla completa
     const dataMatch = extractField(
       text,
-      /spedizione\s+del\s+(\d{2}\/\d{2}\/\d{4})/i
+      /spedizione\s*del\s*(\d{2}\/\d{2}\/\d{4})/i
     );
     const dataPulita = dataMatch
       ? dataMatch.replace(/\//g, '-')
