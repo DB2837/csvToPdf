@@ -14,11 +14,26 @@ input.addEventListener('change', async (event) => {
     // Estrai data e sigla completa
     const dataMatch = extractField(
       text,
-      /spedizione\s*del\s*(\d{2}\/\d{2}\/\d{4})/i
+      /spedizione\s*del\s*(\d{1,2}\/\d{1,2}\/\d{4})/i
     );
+
+    const dd_mm_yyyy = dataMatch.split('/');
+
+    const zero = '0';
+
+    const dd = dd_mm_yyyy[0].length == 1 ? zero + dd_mm_yyyy[0] : dd_mm_yyyy[0];
+    const mm = dd_mm_yyyy[1].length == 1 ? zero + dd_mm_yyyy[1] : dd_mm_yyyy[1];
+    const yyyy = dd_mm_yyyy[2];
+
+    /*   console.log({ dd });
+    console.log({ mm });
+    console.log({ yyyy });
+
+    console.log(dd + '-' + mm + '-' + yyyy); */
+
     const dataPulita = dataMatch
-      ? dataMatch.replace(/\//g, '-')
-      : 'datanon_trovata';
+      ? dd + '-' + mm + '-' + yyyy
+      : 'data_non_trovata';
 
     const siglaRegex = /\b(FVD|FD|DSC|DSX)\s*(\d{1,4})\b/i;
     const siglaMatch = text.match(siglaRegex);
@@ -29,7 +44,12 @@ input.addEventListener('change', async (event) => {
       const codice = siglaMatch[2]; // es. 770
       siglaFormattata = `${tipo}_${codice}`;
     } else {
-      siglaFormattata = 'sigla_non_trovata';
+      const fallbackRegex =
+        /(?:Riferimento\s+fattura\s+com\.le\s+Nr\.|Rif\.\s*Vs\s*Fattura:)\s*(\d{1,4})/i;
+      const fallbackMatch = text.match(fallbackRegex);
+      const tipo = 'FVD'; // default
+      const codice = fallbackMatch ? fallbackMatch[1] : '000';
+      siglaFormattata = `${tipo}_${codice}`;
     }
 
     // Costruisci nuovo nome file
